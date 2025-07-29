@@ -6,6 +6,7 @@
 </head>
 <body>
   <h1>Jovian Careers</h1>
-  <img src="">
+  <img src="{{ url_for('static', filename='dream.jpeg') }}" alt="Dream Job" style="width: 300px; height: auto;">
+  <p>Image URL: {{ url_for('static', filename='dream.jpeg', _external=True) }}</p>
 </body>
 </html>
