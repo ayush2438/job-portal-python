@@ -66,5 +66,13 @@ def submit_application(job_id):
 
     return render_template("apply.html", submitted=True, job=job)
 
+@app.route("/requirements/<int:job_id>")
+def requirements(job_id):
+    job = next((job for job in JOBS if job["id"] == job_id), None)
+    if not job:
+        return "Job not found", 404
+    return render_template("requirement.html", job=job)
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)

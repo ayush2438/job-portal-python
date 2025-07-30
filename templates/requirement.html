@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ job['title'] }} Requirements</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f8f9fa;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card {
+      border-radius: 12px;
+    }
+
+    .card-title {
+      color: #2c3e50;
+    }
+
+    .section-title {
+      margin-top: 24px;
+      font-weight: 600;
+    }
+
+    .btn-apply {
+      width: 100%;
+    }
+
+    @media (min-width: 576px) {
+      .btn-apply {
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body class="p-3 p-sm-4 bg-light">
+  <div class="container">
+
+    <!-- Back to Home -->
+    <div class="mb-4">
+      <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">
+        🏠 Back to Home
+      </a>
+    </div>
+
+    <!-- Card with Requirements -->
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="card-title mb-3">{{ job['title'] }} - Requirements</h2>
+        <p class="text-muted mb-2"><strong>Location:</strong> {{ job['location'] }}</p>
+        {% if job['salary'] %}
+          <p><strong>Salary:</strong> {{ job['salary'] }}</p>
+        {% endif %}
+
+        <hr>
+
+        <!-- Description -->
+        <h5 class="section-title">Job Description:</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et magna at quam convallis elementum. Aliquam erat volutpat.</p>
+
+        <!-- Skills -->
+        <h5 class="section-title">Required Skills:</h5>
+        <ul>
+          <li>Proficiency in Python or relevant tools</li>
+          <li>Strong problem-solving skills</li>
+          <li>Team collaboration experience</li>
+          <li>Effective communication</li>
+        </ul>
+
+        <!-- Eligibility -->
+        <h5 class="section-title">Eligibility:</h5>
+        <ul>
+          <li>Bachelor's degree in a relevant field</li>
+          <li>0–2 years of experience (freshers welcome)</li>
+        </ul>
+
+        <!-- Apply Button -->
+        <div class="text-center mt-4">
+          <a href="{{ url_for('apply', job_id=job['id']) }}" class="btn btn-primary btn-apply">
+            Apply Now
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-muted mt-5 mb-2 small">
+      © 2025 Jovian Careers
+    </footer>
+  </div>
+
+</body>
+</html>
