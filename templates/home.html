@@ -7,9 +7,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
   <style>
+    :root {
+      --primary-color: #4A90E2;
+      --secondary-color: #7B68EE;
+      --accent-color: #50C878;
+      --dark-color: #2C3E50;
+      --light-gray: #F8F9FA;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .main-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      padding: 0;
+      overflow: hidden;
+    }
+
     #banner {
       width: 100%;
-      height: 450px;  
+      height: 400px;
+      object-fit: cover;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 60px 0;
+      text-align: center;
+      margin: -20px -15px 40px -15px;
+    }
+
+    .job-card {
+      transition: all 0.3s ease;
+      border-radius: 15px !important;
+    }
+
+    .job-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+      color: var(--dark-color);
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 2px;
+    }
+
+    .cta-section {
+      background: var(--light-gray);
+      padding: 40px;
+      border-radius: 15px;
+      margin: 40px 0;
+      text-align: center;
+    }
+
+    .stats-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px 0;
+      margin: 40px -15px;
+      border-radius: 15px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" defer></script>
@@ -18,42 +105,94 @@
 <body>
   
   {% include 'nav.html' %}
-  <div class="container" >
-  
-    <img class="img-fluid" id="banner" src="{{ url_for('static', filename='dream.jpeg') }}">
-    <h1 class="text-center mt-2 mb-4">{{company_name }} Careers</h1>
-<div class="row">
-  <div class="col-md-8">
-  <p class="lead" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit veritatis voluptatem nesciunt est non distinctio perferendis, nulla fugit, modi eligendi, voluptate impedit error quidem amet nobis? Expedita, totam quibusdam. Voluptates!Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit veritatis voluptatem nesciunt est non distinctio perferendis, nulla fugit, modi eligendi, voluptate impedit error quidem amet nobis? Expedita, totam quibusdam. Voluptates!
-  </p>
-    </div>
-     <div class="d-none d-md-block col-md-4">
-       <img src="{{ url_for('static', filename='people.jpeg') }}" style="height:240px;" class="img-fluid">
-
-  </div>
-  </div>
-    <h2 class="text-center mt-4 mb-4">JOB OPENINGS</h2>
- 
-    <div style="margin-bottom : 16px; margin-top: 16px">
-      {% for job in jobs %}
-        <!-- Include the jobitem.html template for each job -->
-         {% include 'jobitem.html' %}
+  <div class="container">
+    <div class="main-container">
+      <img class="img-fluid" id="banner" src="{{ url_for('static', filename='dream.jpeg') }}">
       
-      {% endfor %}
-    </div>
-      <div class="text-center">
-        <a href="mailto:tomarayush215@gmail.com?subject=Question%20about%20Job%20Openings&body=My%20name%3A%20%3Center%20your%20name%20here%3E%0D%0AMy%20question%3A%20%3Center%20your%20question%20here%3E" class="btn btn-primary btn-lg">
-          Contact Us
-        </a>
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="container">
+          <h1 class="display-4 fw-bold mb-3">{{company_name}} Careers</h1>
+          <p class="lead mb-4">Join our innovative team and shape the future of technology</p>
+          <a href="#jobs" class="btn btn-light btn-lg px-4 py-2 fw-semibold">
+            Explore Opportunities
+          </a>
+        </div>
       </div>
 
-      <!-- Move footer outside of above div -->
-      <div class="text-center mt-4">
-        {% include 'footer.html' %}
+      <div class="container px-4">
+        <!-- About Section -->
+        <div class="row mb-5">
+          <div class="col-md-8">
+            <h3 class="fw-bold mb-3 text-dark">Why Choose {{company_name}}?</h3>
+            <p class="lead text-muted">We're not just another company - we're a community of innovators, dreamers, and problem-solvers. At {{company_name}}, you'll work on cutting-edge projects that make a real difference in people's lives while growing your career in an environment that values creativity, collaboration, and continuous learning.</p>
+            <div class="row mt-4">
+              <div class="col-sm-6">
+                <h6 class="fw-bold text-primary">💡 Innovation First</h6>
+                <p class="small text-muted">Work with latest technologies</p>
+              </div>
+              <div class="col-sm-6">
+                <h6 class="fw-bold text-success">🌱 Growth Focused</h6>
+                <p class="small text-muted">Continuous learning opportunities</p>
+              </div>
+            </div>
+          </div>
+          <div class="d-none d-md-block col-md-4">
+            <img src="{{ url_for('static', filename='people.jpeg') }}" style="height:280px; border-radius: 15px;" class="img-fluid shadow">
+          </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-3 stat-item">
+                <div class="stat-number">500+</div>
+                <div>Employees</div>
+              </div>
+              <div class="col-md-3 stat-item">
+                <div class="stat-number">50+</div>
+                <div>Countries</div>
+              </div>
+              <div class="col-md-3 stat-item">
+                <div class="stat-number">10M+</div>
+                <div>Users Served</div>
+              </div>
+              <div class="col-md-3 stat-item">
+                <div class="stat-number">99%</div>
+                <div>Satisfaction</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="text-center section-title mt-5 mb-4" id="jobs">Open Positions</h2></div>
+ 
+    <div class="row">
+          {% for job in jobs %}
+            <div class="col-lg-6 mb-3">
+              <!-- Include the jobitem.html template for each job -->
+              {% include 'jobitem.html' %}
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+          <h3 class="fw-bold mb-3">Don't See Your Perfect Role?</h3>
+          <p class="text-muted mb-4">We're always looking for talented individuals to join our team. Get in touch and let's discuss how you can contribute to our mission.</p>
+          <a href="mailto:tomarayush215@gmail.com?subject=Question%20about%20Job%20Openings&body=My%20name%3A%20%3Center%20your%20name%20here%3E%0D%0AMy%20question%3A%20%3Center%20your%20question%20here%3E" class="btn btn-primary btn-lg fw-semibold px-4">
+            💬 Contact Our HR Team
+          </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-5 pb-4" id="about">
+          {% include 'footer.html' %}
+        </div>
       </div>
-
-
     </div>
+  </div>
     
 </body>
 </html>

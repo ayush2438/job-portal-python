@@ -1,20 +1,33 @@
 <!-- job_item.html -->
-<div class="border-bottom row mb-3 pb-2">
-  <div class="col-md-10 col-12">
-    <h4 class="mb-1 text-secondary">{{ job['title'] }}</h4>
-    <div><strong>Location:</strong> {{ job['location'] }}</div>
-    {% if 'salary' in job %}
-      <div><strong>Salary:</strong> {{ job['salary'] }}</div>
-    {% endif %}
-  </div>
+<div class="card mb-4 shadow-sm border-0 job-card">
+  <div class="card-body">
+    <div class="row align-items-center">
+      <div class="col-md-8 col-12">
+        <h4 class="mb-2 text-dark fw-bold">{{ job['title'] }}</h4>
+        <div class="d-flex flex-wrap gap-3 mb-2">
+          <span class="badge bg-light text-dark border">
+            <i class="bi bi-geo-alt"></i> {{ job['location'] }}
+          </span>
+          {% if 'salary' in job %}
+            <span class="badge bg-success">
+              <i class="bi bi-currency-dollar"></i> {{ job['salary'] }}
+            </span>
+          {% endif %}
+        </div>
+        <p class="text-muted small mb-0">Join our team and make an impact in your career</p>
+      </div>
 
-  <!-- Responsive buttons -->
-  <div class="col-md-2 col-12 mt-2 mt-md-0 d-flex flex-md-column gap-2 justify-content-start">
-    <a href="{{ url_for('apply', job_id=job['id']) }}" class="btn btn-outline-primary btn-sm w-100">
-      Apply
-    </a>
-    <a href="{{ url_for('requirements', job_id=job['id']) }}" class="btn btn-outline-info btn-sm w-100">
-      View Requirements
-    </a>
+      <!-- Responsive buttons -->
+      <div class="col-md-4 col-12 mt-3 mt-md-0">
+        <div class="d-flex flex-column gap-2">
+          <a href="{{ url_for('apply', job_id=job['id']) }}" class="btn btn-primary btn-sm fw-semibold">
+            🚀 Apply Now
+          </a>
+          <a href="{{ url_for('requirements', job_id=job['id']) }}" class="btn btn-outline-secondary btn-sm">
+            📋 View Details
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
