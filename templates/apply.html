@@ -66,7 +66,8 @@
         <p>Thank you for applying to the <strong>{{ job.title }}</strong> role. We'll contact you shortly.</p>
       {% else %}
         <h2 class="mb-4 text-center">Apply for <span class="text-primary">{{ job.title }}</span></h2>
-        <form action="{{ url_for('submit_application', job_id=job['id']) }}" method="POST" enctype="multipart/form-data">
+        <!-- ✅ FIXED: route name changed from submit_application to apply -->
+        <form action="{{ url_for('apply', job_id=job['id']) }}" method="POST" enctype="multipart/form-data">
           <div class="mb-3">
             <label class="form-label">Full Name</label>
             <input type="text" name="fullname" class="form-control" placeholder="John Doe" required />
