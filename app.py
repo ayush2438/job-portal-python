@@ -3,7 +3,7 @@ load_dotenv()
 
 import os
 from datetime import datetime
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect, url_for
 from supabase import create_client, Client
 from database import load_jobs_from_db, load_job_from_db
 import psycopg2
@@ -42,10 +42,20 @@ except Exception as e:
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-@app.route("/")
-def home():
-    jobs = load_jobs_from_db()
-    return render_template("home.html", jobs=jobs, company_name='Jovian')
+@app.route('/')
+def choose():
+    return render_template('choose.html')
+
+@app.route('/post-job', methods=['GET', 'POST'])
+def post_job():
+    if request.method == 'POST':
+        # Save job to database here
+        # title = request.form['title']
+        # location = request.form['location']
+        # salary = request.form['salary']
+        # ...save to DB...
+        return render_template('post_job.html', submitted=True)
+    return render_template('post_job.html', submitted=False)
 
 @app.route("/api/jobs")
 def list_jobs():
@@ -127,6 +137,11 @@ def requirements(job_id):
     if not job:
         return "Job not found", 404
     return render_template("requirement.html", job=job)
+
+@app.route('/home')
+def home():
+    jobs = load_jobs_from_db()
+    return render_template('home.html', jobs=jobs)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True)
